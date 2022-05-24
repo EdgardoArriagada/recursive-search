@@ -46,6 +46,33 @@ describe('daily code problem', () => {
     expect(result).toEqual(['tres.beta.miel', 'miel', 'sin.miel'])
   })
 
+  test('inside an array', () => {
+    const input = {dos: 2, tres: [{miel: 'a'}]}
+
+    const result = findKeyInObject(input, 'miel')
+
+    expect(result).toEqual(['tres.0.miel'])
+  })
+
+  test('deep inside an array', () => {
+    const input = {
+      dos: 2,
+      tres: [
+        {
+          alpha: [
+            {uno: 1},
+            {dos: 2},
+            {tres: {miel: 'found'}}
+          ]
+        }
+      ]
+    }
+
+    const result = findKeyInObject(input, 'miel')
+
+    expect(result).toEqual(['tres.0.alpha.2.tres.miel'])
+  })
+
   test('multiple times', () => {
     const input = {miel: {miel: {miel: 'a'}}}
 
