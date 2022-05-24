@@ -45,4 +45,12 @@ describe('daily code problem', () => {
 
     expect(result).toEqual(['tres.beta.miel', 'miel', 'sin.miel'])
   })
+
+  test('multiple times', () => {
+    const input = {miel: {miel: {miel: 'a'}}}
+
+    const result = getResult(input, 'miel')
+
+    expect(result).toEqual(['miel.miel.miel', 'miel.miel', 'miel'])
+  })
 })
