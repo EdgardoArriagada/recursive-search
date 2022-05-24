@@ -1,7 +1,7 @@
-// const getResult = (input) => typeof input
-
-
 function findKeyInObject(originalInput, givenKey) {
+  if(typeof originalInput !== 'object') return []
+  if(originalInput === null) return []
+
   const path = []
   const founds = []
 
@@ -52,5 +52,18 @@ describe('daily code problem', () => {
     const result = findKeyInObject(input, 'miel')
 
     expect(result).toEqual(['miel.miel.miel', 'miel.miel', 'miel'])
+  })
+
+  test.each`
+    input
+    ${undefined}
+    ${null}
+    ${[]}
+    ${'abcd'}
+    ${1234}
+  `('passing "$input"', ({input}) => {
+    const result = findKeyInObject(input, 'miel')
+
+    expect(result).toEqual([])
   })
 })
