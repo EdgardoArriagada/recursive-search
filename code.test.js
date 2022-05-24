@@ -1,7 +1,7 @@
 // const getResult = (input) => typeof input
 
 
-function getResult(original, given) {
+function findKeyInObject(originalInput, givenKey) {
   const path = []
   const founds = []
 
@@ -9,14 +9,14 @@ function getResult(original, given) {
     return Object.keys(input).forEach(key => {
       path.push(key)
       if(typeof input[key] === 'object') recur(input[key])
-      if(key === given) {
+      if(key === givenKey) {
         founds.push(path.join('.'))
       }
       path.pop(key)
     })
   }
 
-  recur(original)
+  recur(originalInput)
 
   return founds
 }
@@ -25,7 +25,7 @@ describe('daily code problem', () => {
   test('deep 1', () => {
     const input = {dos: 2, uno: 1, tres: {miel: false}}
 
-    const result = getResult(input, 'miel')
+    const result = findKeyInObject(input, 'miel')
 
     expect(result).toEqual(['tres.miel'])
   })
@@ -33,7 +33,7 @@ describe('daily code problem', () => {
   test('deep 2', () => {
     const input = {dos: 2, tres: {alpha: 'asd', beta: {miel: 'a'}}, uno: 1}
 
-    const result = getResult(input, 'miel')
+    const result = findKeyInObject(input, 'miel')
 
     expect(result).toEqual(['tres.beta.miel'])
   })
@@ -41,7 +41,7 @@ describe('daily code problem', () => {
   test('multiple finds', () => {
     const input = {dos: 2, tres: {alpha: 'asd', beta: {miel: 'a'}}, uno: 1, miel: 'lol', sin: {miel: 'm'}}
 
-    const result = getResult(input, 'miel')
+    const result = findKeyInObject(input, 'miel')
 
     expect(result).toEqual(['tres.beta.miel', 'miel', 'sin.miel'])
   })
@@ -49,7 +49,7 @@ describe('daily code problem', () => {
   test('multiple times', () => {
     const input = {miel: {miel: {miel: 'a'}}}
 
-    const result = getResult(input, 'miel')
+    const result = findKeyInObject(input, 'miel')
 
     expect(result).toEqual(['miel.miel.miel', 'miel.miel', 'miel'])
   })
