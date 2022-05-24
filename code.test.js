@@ -54,6 +54,14 @@ describe('daily code problem', () => {
     expect(result).toEqual(['miel.miel.miel', 'miel.miel', 'miel'])
   })
 
+  test('not found', () => {
+    const input = { "" : 1, "null" : 2, "false" : 3 }
+
+    const result = findKeyInObject(input, 'miel')
+
+    expect(result).toEqual([])
+  })
+
   test.each`
     input
     ${undefined}
